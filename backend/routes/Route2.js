@@ -13,7 +13,7 @@ const name=req.body.name;
 const role=req.body.role;
 
 if(!email || !password || !name || !role){
-    res.json("Invalid body !! email or name or password not intred");
+    res.json("Invalid body !! email or name or password not entered");
     return;
 }
 try{
