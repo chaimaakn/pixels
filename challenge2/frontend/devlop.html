@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de fichiers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #uploadForm {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        #uploadForm input, #uploadForm button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        #uploadForm button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #uploadForm button:hover {
+            background-color: #4cae4c;
+        }
+        #fileList {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .fileItem {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestionnaire de fichiers</h1>
+    
+    <form id="uploadForm">
+        <label for="fileInput">Sélectionnez un fichier :</label>
+        <input type="file" id="fileInput" required>
+        <label for="description">Description :</label>
+        <input type="text" id="description" placeholder="Description" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <div id="fileList">
+        <h2>Fichiers téléchargés</h2>
+        <!-- Les fichiers téléchargés seront ajoutés ici -->
+    </div>
+
+    <script src="app2.js"></script>
+</body>
+</html>

@@ -12,6 +12,43 @@ const uploadFile = async (req, res) => {
     const { description } = req.body;
     const { originalname, mimetype, path: filePath, size } = req.file;
 
+    // Sauvegarde locale
+    const localPath = path.join(__dirname, '../uploads', originalname);
+    fs.renameSync(filePath, localPath);
+
+    // Upload vers S3
+    const fileStream = fs.createReadStream(localPath);
+    const uploadParams = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: originalname,
+        Body: fileStream,
+        ContentType: mimetype
+    };
+
+    s3.upload(uploadParams, async (err, data) => {
+        if (err) {
+            return res.status(500).json({ status: 'error', message: err.message });
+        }
+
+        const file = new File({
+            name: originalname,
+            size: size,
+            description: description,
+            mime_type: mimetype,
+            path: localPath,
+            s3_url: data.Location
+        });
+
+        await file.save();
+        res.status(201).json({ status: 'success', data: { id: file._id } });
+    });
+};
+
+/*
+const uploadFile = async (req, res) => {
+    const { description } = req.body;
+    const { originalname, mimetype, path: filePath, size } = req.file;
+
     const fileStream = fs.createReadStream(filePath);
 
     const uploadParams = {
@@ -38,7 +75,7 @@ const uploadFile = async (req, res) => {
         res.status(201).json({ status: 'success', data: { id: file._id } });
     });
 };
-
+*/
 // Get file info by id
 const getFile = async (req, res) => {
         try {
@@ -85,11 +122,55 @@ const deleteFile = async (req, res) => {
         if (!file) {
             return res.status(404).json({ status: 'error', message: 'File not found' });
         }
+
+        const deleteParams = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: file.name
+        };
+
+        s3.deleteObject(deleteParams, (err, data) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ status: 'error', message: 'Error deleting file from S3' });
+            }
+            res.json({ status: 'success', message: 'File deleted' });
+        });
+    } catch (error) {
+        res.status(500).json({ status: 'error', message: error.message });
+    }
+};
+
+/*
+const deleteFile = async (req, res) => {
+    try {
+        const file = await File.findByIdAndDelete(req.params.id);
+        if (!file) {
+            return res.status(404).json({ status: 'error', message: 'File not found' });
+        }
         fs.unlinkSync(file.path);
         res.json({ status: 'success', message: 'File deleted' });
     } catch (error) {
         res.status(500).json({ status: 'error', message: error.message });
     }
+};
+*/
+const getAllFiles = async (req, res) => {
+    try {
+        const files = await File.find();
+        res.json({ status: 'success', data: files });
+    } catch (error) {
+        res.status(500).json({ status: 'error', message: error.message });
+    }
+};
+
+
+const listFiles = (req, res) => {
+    fs.readdir('uploads', (err, files) => {
+        if (err) {
+            return res.status(500).json({ status: 'error', message: err.message });
+        }
+        res.status(200).json({ status: 'success', data: files });
+    });
 };
 
 module.exports = {
@@ -97,5 +178,7 @@ module.exports = {
     getFile,
     downloadFile,
     updateFile,
-    deleteFile
+    deleteFile,
+    getAllFiles,
+    listFiles
 };
