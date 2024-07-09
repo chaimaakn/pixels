@@ -11,7 +11,7 @@
 
 - Requirement 1 (100%)
 - Requirement 2 (100%)
-- Requirement 3 (0%)
+- Requirement 3 (100%)
 
 - Did you complete any bonus points? **No**
 
