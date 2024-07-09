@@ -229,12 +229,17 @@ router.delete("/delete/char/:id", async function(req, res) {
 
 
 
-router.get('/characters/all', async (req, res) => {
+router.get('/characters/all', authenticate, async (req, res) => {
     try {
-      const characters = await CharacterModel.find(); 
-      res.json(characters); 
+      let characters;
+      if (req.user.role === "Admin") {
+        characters = await CharacterModel.find({});
+      } else {
+        characters = await CharacterModel.find({ Released: true });
+      }
+      res.json(characters);
     } catch (err) {
-      res.status(500).json({error: "Internal Server Error"  }); 
+      res.status(500).json({ error: "Internal Server Error" });
     }
   });
   
