@@ -17,11 +17,9 @@ const upload = multer({ storage });
 
 router.post('/upload', upload.single('file'), fileController.uploadFile);
 router.get('/files/:id', fileController.getFile);
-router.get('/files/:id/download', fileController.downloadFile);
-router.patch('/files/:id', fileController.updateFile);
-router.delete('/files/:id', fileController.deleteFile);
+router.get('/files/:name/download', fileController.downloadFile); // Mise à jour ici
+router.delete('/files/:name', fileController.deleteFile); // Mise à jour ici
 router.get('/files', fileController.getAllFiles);
-router.get('/list', fileController.listFiles); 
-
+router.get('/list', fileController.listFiles);
 
 module.exports = router;

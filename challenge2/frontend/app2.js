@@ -9,14 +9,21 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
             method: 'POST',
             body: formData
         });
+
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+
         const data = await response.json();
+
         if (data.status === 'success') {
             alert('Fichier téléversé avec succès');
             fetchFiles();
         } else {
-            alert('Erreur lors du téléversement');
+            //alert('Erreur lors du téléversement: ' + data.message);
         }
     } catch (error) {
+        //alert('Erreur lors du téléversement: ' + error.message);
         console.error('Erreur:', error);
     }
 });
@@ -55,11 +62,21 @@ async function deleteFile(fileName) {
             alert('Fichier supprimé avec succès');
             fetchFiles();
         } else {
-            alert('Erreur lors de la suppression');
+            alert('Erreur lors de la suppression: ' + data.message);
         }
     } catch (error) {
+        alert('Erreur lors de la suppression: ' + error.message);
         console.error('Erreur:', error);
     }
 }
-
+function createFileElement(file) {
+    const fileElement = document.createElement('div');
+    fileElement.className = 'file-item';
+    fileElement.innerHTML = `
+        <p>${file.name} - ${file.description}</p>
+        <button onclick="downloadFile('${file._id}')">Télécharger</button>
+        <button onclick="deleteFile('${file._id}')">Supprimer</button>
+    `;
+    return fileElement;
+}
 fetchFiles();
