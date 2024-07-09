@@ -13,7 +13,7 @@ const name=req.body.name;
 const role=req.body.role;
 
 if(!email || !password || !name || !role){
-    res.json("Invalid body !! email or name or password not entered");
+    res.json("Invalid body !! email or name or password not intred");
     return;
 }
 try{
@@ -237,6 +237,16 @@ router.get('/characters/all', async (req, res) => {
       res.status(500).json({error: "Internal Server Error"  }); 
     }
   });
+
+  router.use((req, res, next) => {
+    res.status(404).json({ error: "Page not found" });
+});
+
+// Middleware pour gérer les erreurs
+router.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: "Internal Server Error" });
+});
   
 
 module.exports=router;
