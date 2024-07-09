@@ -4,7 +4,7 @@ const userModel=require("../dataBase/modles/users.js");
 const jwt=require("../util/jwt.js");
 const hashUtile=require("../util/hash.js");
 const CharacterModel=require("../dataBase/modles/character.js");
-
+const authenticate = require("../middleware/authM.js");
 
 router.post("/register",async function(req,res){
 const email=req.body.email;
