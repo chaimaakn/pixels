@@ -15,8 +15,8 @@
 
 - Challenge  : Challenge 1 (False Knight)
 - Git Repository Link : https://github.com/chaimaakn/pixels.git
+- Etapes requetes : https://docs.google.com/document/d/1xmLRTTXdEuYsA-6INczcK7mipeSWL8OI0fWQANyN6ck/edit?usp=sharing
 - Previw Video Link : https://drive.google.com/drive/folders/1b9mhMY8Ftv3aqAeNGTp5wLWw2-NZ1D_y?usp=drive_link
-
 ## Challenge2
 
 - Challenge Name : Challenge 2 (Hornet)
@@ -35,3 +35,4 @@
 - Challenge Name : Watcher Knight
 - Git Repository Link : https://github.com/chaimaakn/watcherknight_pixels.git
 - Previw Video Link :  https://drive.google.com/drive/folders/1b9mhMY8Ftv3aqAeNGTp5wLWw2-NZ1D_y?usp=drive_link
+- Etapes requetes : https://docs.google.com/document/d/1xmLRTTXdEuYsA-6INczcK7mipeSWL8OI0fWQANyN6ck/edit?usp=sharing
