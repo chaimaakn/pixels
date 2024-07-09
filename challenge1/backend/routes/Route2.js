@@ -70,7 +70,7 @@ const Released=req.body.Released;
 const email=req.body.email;
 const password=req.body.password;
 
-    if(!email || !password || !name || !Abilities || !PowerLevel || !Type || !Description || !Lifes || !Mana || !Armor || !Speed || !Equipment || !Rank || !Origin || !Released){
+    if(!email || !password || !name || !Abilities || !PowerLevel || !Type || !Description || !Lifes || !Mana || !Armor || !Speed || !Equipment || !Rank || !Origin || Released === undefined){
         res.status(401).json("Invalid body !! ");
         return;
     }
